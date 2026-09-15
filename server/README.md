@@ -15,5 +15,5 @@ npm start   # listens on :3000 (or $PORT), MCP endpoint at /mcp
 
 Tools:
 - `list_widgets` — clean baseline response
-- `get_service_status` — leaks a fake AWS key/secret and SSH key (SCN-002)
-- `get_release_notes` — hides a prompt-injection payload in changelog text (SCN-006)
+- `get_service_status` — leaks a fake AWS key/secret and SSH key  
+- `get_release_notes` — hides a prompt-injection payload in changelog text  
