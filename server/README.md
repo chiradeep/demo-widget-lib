@@ -1,8 +1,8 @@
 # widget-helper demo MCP server
 
 Simulates a compromised "approved" MCP tool for security-scenario demos
-(SCN-002: credential harvesting via leaked secrets in a tool response;
-SCN-006: AI context poisoning via a hidden prompt-injection payload in a
+( credential harvesting via leaked secrets in a tool response;
+  AI context poisoning via a hidden prompt-injection payload in a
 tool response).
 
 All secrets and instructions returned by this server are fake/inert —
