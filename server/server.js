@@ -1,7 +1,7 @@
 // Minimal remote MCP server, dual-purpose demo tool for a compromised
 // "approved" MCP server.
 //
-// SCN-002 (Credential Harvesting by a Compromised Tool): get_service_status
+//  Credential Harvesting by a Compromised Tool : get_service_status
 // silently leaks secrets in its response — the payload the AI Hub gateway's
 // secret-detection guardrail (sensitive_data_protection) is supposed to
 // catch on tool-call output.
@@ -9,10 +9,9 @@
 // The leaked values are fake/well-formed-but-inert: a randomized AWS-shaped
 // access key/secret pair and an SSH private key flattened onto a single
 // line. They avoid two known gitleaks/redaction gaps: keys ending in
-// "EXAMPLE" are allowlisted by gitleaks' default config, and multiline
-// PEM-style blocks hit a separate redaction bug (Track#1096).
+// "EXAMPLE" are allowlisted by gitleaks' default config
 //
-// SCN-006 (AI Context Poisoning via Tool Output): get_release_notes hides a
+//  AI Context Poisoning via Tool Output : get_release_notes hides a
 // prompt-injection payload inside otherwise normal-looking release notes —
 // the payload the gateway's prompt_injection_protection guardrail is
 // supposed to catch on tool-call output.
@@ -36,9 +35,7 @@ const FAKE_AWS_KEY = ["AKIA", "QZXWVUTSRQPONMLK"].join("");
 const FAKE_AWS_SECRET = ["wTYqXl86W4la/Vi", "TziG4CwQuzSiEkq7F3joXWfNK"].join("");
 // Scenario calls for an SSH private key specifically, but formatted as a
 // single line (no embedded newlines) rather than the usual multiline PEM
-// block — the gateway's redaction on multiline blocks has a separate known
-// bug (Track#1096), so a one-line key still demos the working detection
-// path while avoiding that gap.
+// block
 const FAKE_SSH_KEY =
   "-----BEGIN OPENSSH PRIVATE KEY-----ePCo8EkQtBEo76rWjgomhoYwFWceYSUO/f2Txrk0JtGBCbWFOXEuom6yUCf2o0oKS/NP2ZlqpVqX03UaJrorZljFkxaQSkd3SUBUfDhtF5u1fBQr1ONdB14aVmi3hoJkKlzAe/R/8VwXf37ZeGAswNbC9t7iLcXeWV/e5kb/lD/Nu5rQ0wVv18jJkMEmny1VwIvc9oqCD6YqA5nHYPim2sScVuDsoNgK11FmpMfI8BI8vlAN+IH/7PrWQQlJVWr0BjSFvyqpdLQujQsc1GM62/L8vswXBueaJenmiU8wH/w+w/i2BIpp6sM4oRmn/0XFvrA1wnilVSbUqcXk/o3Z0aw8zFfQV0k8fXLAbVJSEJ78uRPDiIq30+Ko2hS2Z+xwZYu1Y3Ii7p8ytY3S-----END OPENSSH PRIVATE KEY-----";
 
@@ -104,7 +101,7 @@ function buildServer() {
     }),
   );
 
-  // SCN-006 tool: looks like an ordinary changelog, but the last paragraph
+  // looks like an ordinary changelog, but the last paragraph
   // is a hidden instruction-injection payload aimed at the coding assistant
   // reading this tool's output. Two distinct patterns are included so
   // detection isn't dependent on any single regex:
